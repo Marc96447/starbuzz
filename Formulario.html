@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Starbuzz Online</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <header>
+        <h1>BIENVENIDO AL STARBUZZ ONLINE</h1>
+    </header>
+    <div class="container">
+        <h2 id="subheading">Donde puedes pedir tu café desde tu casa y a tu gusto</h2>
+        <form action="#" method="post" id="orderForm">
+            <h2>Selecciona tu café</h2>
+            <div>
+                <label for="tipo-cafe">Tipo de café:</label>
+                <select id="tipo-cafe" name="tipo-cafe">
+                    <option value="house-blend">House Blend</option>
+                    <option value="shade-grown-bolivia-supremo">Shade Grown Bolivia Supremo</option>
+                    <option value="organic-guatemala">Organic Guatemala</option>
+                    <option value="kenya">Kenya</option>
+                </select>
+            </div>
+            <div>
+                <label>Tipo de molienda:</label>
+                <input type="radio" id="entero" name="molienda" value="entero">
+                <label for="entero">Entero</label>
+                <input type="radio" id="molido" name="molienda" value="molido">
+                <label for="molido">Molido</label>
+            </div>
+            <div>
+                <label for="cantidad">Cantidad:</label>
+                <input type="number" id="cantidad" name="cantidad" min="1" required>
+            </div>
+            <div>
+                <label for="fecha">Fecha de entrega:</label>
+                <input type="date" id="fecha" name="fecha" required>
+            </div>
+            <div>
+                <h2>Extras</h2>
+                <input type="checkbox" id="gift-wrap" name="extras" value="gift-wrap">
+                <label for="gift-wrap">Gift Wrap</label>
+                <input type="checkbox" id="catalog" name="extras" value="catalog">
+                <label for="catalog">Include catalog with order</label>
+            </div>
+            <div>
+                <h2>Datos del cliente</h2>
+                <label for="nombre">Nombre:</label>
+                <input type="text" id="nombre" name="nombre" required>
+            </div>
+            <div>
+                <label for="correo">Correo:</label>
+                <input type="email" id="correo" name="correo" required>
+            </div>
+            <div>
+                <label for="ciudad">Ciudad:</label>
+                <input type="text" id="ciudad" name="ciudad" required>
+            </div>
+            <div>
+                <label for="estado">Estado:</label>
+                <input type="text" id="estado" name="estado" required>
+            </div>
+            <div>
+                <label for="codigo-postal">Código Postal:</label>
+                <input type="text" id="codigo-postal" name="codigo-postal" required>
+            </div>
+            <div>
+                <label for="telefono">Teléfono:</label>
+                <input type="tel" id="telefono" name="telefono" required>
+            </div>
+            <div>
+                <label for="comentarios">Comentarios:</label>
+                <textarea id="comentarios" name="comentarios" rows="4"></textarea>
+            </div>
+            <button type="submit">Ordene Ya</button>
+        </form>
+        <div id="respuesta" style="display: none;">
+            <h1>STARBUZZ ONLINE</h1>
+            <h2>Gracias por su preferencia</h2>
+            <div id="resumen">
+                <!-- Resumen del pedido se mostrará aquí -->
+            </div>
+            <button id="backToForm">Volver al formulario</button>
+            <button id="backToHome">Volver a la página principal de Starbuzz</button>
+        </div>
+    </div>
+    <script>
+        document.querySelector('form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            const tipoCafe = document.getElementById('tipo-cafe').value;
+            const molienda = document.querySelector('input[name="molienda"]:checked').value;
+            const cantidad = document.getElementById('cantidad').value;
+            const fecha = document.getElementById('fecha').value;
+            const extras = Array.from(document.querySelectorAll('input[name="extras"]:checked')).map(e => e.nextElementSibling.textContent).join(', ');
+            const nombre = document.getElementById('nombre').value;
+            const correo = document.getElementById('correo').value;
+            const ciudad = document.getElementById('ciudad').value;
+            const estado = document.getElementById('estado').value;
+            const codigoPostal = document.getElementById('codigo-postal').value;
+            const telefono = document.getElementById('telefono').value;
+            const comentarios = document.getElementById('comentarios').value;
+
+            const resumenHtml = `
+                <h3>Resumen del Pedido</h3>
+                <p><strong>Tipo de café:</strong> ${tipoCafe}</p>
+                <p><strong>Tipo de molienda:</strong> ${molienda}</p>
+                <p><strong>Cantidad:</strong> ${cantidad}</p>
+                <p><strong>Fecha de entrega:</strong> ${fecha}</p>
+                <p><strong>Extras:</strong> ${extras || 'Ninguno'}</p>
+                <h3>Datos del Cliente</h3>
+                <p><strong>Nombre:</strong> ${nombre}</p>
+                <p><strong>Correo:</strong> ${correo}</p>
+                <p><strong>Ciudad:</strong> ${ciudad}</p>
+                <p><strong>Estado:</strong> ${estado}</p>
+                <p><strong>Código Postal:</strong> ${codigoPostal}</p>
+                <p><strong>Teléfono:</strong> ${telefono}</p>
+                <p><strong>Comentarios:</strong> ${comentarios}</p>
+            `;
+            
+            document.getElementById('resumen').innerHTML = resumenHtml;
+            document.querySelector('form').style.display = 'none';
+            document.getElementById('subheading').style.display = 'none';
+            document.getElementById('respuesta').style.display = 'block';
+        });
+
+        document.getElementById('backToForm').addEventListener('click', function() {
+            document.querySelector('form').style.display = 'block';
+            document.getElementById('subheading').style.display = 'block';
+            document.getElementById('respuesta').style.display = 'none';
+        });
+
+        document.getElementById('backToHome').addEventListener('click', function() {
+            window.location.href = 'cafeteria.html';
+        });
+    </script>
+</body>
+</html
